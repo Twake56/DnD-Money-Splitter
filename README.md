@@ -4,7 +4,7 @@ Currently only works with 4 players
 
 Usage:
 
-python moneysplit.py <pp> <gp> <ep> <sp> <cp> [--tengem <Num gems worth ten G> --fiftygem <fif> --hundredgem <hund> --fivegem <five hundred>]
+python moneysplit.py \<pp> \<gp> \<ep> \<sp> \<cp> [--tengem \<Num gems worth ten G> --fiftygem \<fif> --hundredgem \<hund> --fivegem \<five hundred>]
 
 ex:
 
