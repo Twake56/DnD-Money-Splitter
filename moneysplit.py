@@ -117,7 +117,7 @@ def main(pp,gp,ep,sp,cp,players,*args):
             res = (self.ten * 10) + (self.fifty * 50) + (self.hundred * 100) + (self.five * 500)
             return res
         def total(self):
-            res = (self.pp * 10) + self.gp + (self.ep/2) + (self.sp/10) + (self.cp/100) + (self.ten * 10) + (self.fifty * 50) + (self.hundred * 100) + (self.five * 500)
+            res = float((self.pp * 10) + (self.gp) + (self.ep/2) + (self.sp/10) + (self.cp * .001) + (self.ten * 10) + (self.fifty * 50) + (self.hundred * 100) + (self.five * 500))
             return res
         def makeMessage(self):
             message = self.name + ' recieves: ' + str(self.pp) + 'P, ' + str(self.gp) + 'G, ' + str(self.ep) + 'E, ' + str(self.sp) + 'S, ' + str(self.cp) + 'C, and ' + str(self.totalGems()) + ' worth of gems, ' + 'with a difference of ' + str(self.getDiff())
@@ -131,9 +131,9 @@ def main(pp,gp,ep,sp,cp,players,*args):
     player6 = player('player6',0,0,0,0,0,0,0,0,0)
     player7 = player('player7',0,0,0,0,0,0,0,0,0)
     player8 = player('player8',0,0,0,0,0,0,0,0,0)
+
     player_pool = [player1,player2,player3,player4,player5,player6,player7,player8]
     player_pool = player_pool[0:playersf]
-
 
     while five > 0:
         totals = []
@@ -196,6 +196,7 @@ def main(pp,gp,ep,sp,cp,players,*args):
         for i in range(0,len(player_pool)):
             totals.append(player_pool[i].total())
         low = min(totals)
+        print(low)
         lowest_player = findLowest(player_pool,low)
         lowest_player.addC()
     for x in player_pool:
