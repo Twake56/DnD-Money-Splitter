@@ -56,14 +56,14 @@ def main(pp,gp,ep,sp,cp,players,*args):
     epf = float(ep)
     spf = float(sp)
     cpf = float(cp)
-    playersf = float(players)
+    playersf = int(players)
     total_gold = (ppf * 10) + gpf + (epf/2)+ (spf/10) + (cpf/100) + (ten * 10) + (fifty * 50) + (hundred * 100) + (five * 500)
     print('Total gold value: ' + str(total_gold))
     per_player = total_gold/playersf
     print(str(per_player) + ' Per person')
 
     class player(object):
-        def __init__(self, pp, gp, ep, sp, cp, ten, fifty, hundred, five):
+        def __init__(self, name, pp, gp, ep, sp, cp, ten, fifty, hundred, five):
             self.pp = pp
             self.gp = gp
             self.ep = ep
@@ -73,6 +73,7 @@ def main(pp,gp,ep,sp,cp,players,*args):
             self.fifty = fifty
             self.hundred = hundred
             self.five = five
+            self.name = name
         def addP(self):
             self.pp += 1
             global ppf
@@ -109,67 +110,96 @@ def main(pp,gp,ep,sp,cp,players,*args):
             self.five += 1
             global five
             five = five - 1
+        def getDiff(self):
+            res = self.total() - per_player
+            return res
+        def totalGems(self):
+            res = (self.ten * 10) + (self.fifty * 50) + (self.hundred * 100) + (self.five * 500)
+            return res
         def total(self):
             res = (self.pp * 10) + self.gp + (self.ep/2) + (self.sp/10) + (self.cp/100) + (self.ten * 10) + (self.fifty * 50) + (self.hundred * 100) + (self.five * 500)
             return res
+        def makeMessage(self):
+            message = self.name + ' recieves: ' + str(self.pp) + 'P, ' + str(self.gp) + 'G, ' + str(self.ep) + 'E, ' + str(self.sp) + 'S, ' + str(self.cp) + 'C, and ' + str(self.totalGems()) + ' worth of gems, ' + 'with a difference of ' + str(self.getDiff())
+            return message
 
-    player1 = player(0,0,0,0,0,0,0,0,0)
-    player2 = player(0,0,0,0,0,0,0,0,0)
-    player3 = player(0,0,0,0,0,0,0,0,0)
-    player4 = player(0,0,0,0,0,0,0,0,0)
-    player_list = [player1,player2,player3,player4]
+    player1 = player('player1',0,0,0,0,0,0,0,0,0)
+    player2 = player('player2',0,0,0,0,0,0,0,0,0)
+    player3 = player('player3',0,0,0,0,0,0,0,0,0)
+    player4 = player('player4',0,0,0,0,0,0,0,0,0)
+    player5 = player('player5',0,0,0,0,0,0,0,0,0)
+    player6 = player('player6',0,0,0,0,0,0,0,0,0)
+    player7 = player('player7',0,0,0,0,0,0,0,0,0)
+    player8 = player('player8',0,0,0,0,0,0,0,0,0)
+    player_pool = [player1,player2,player3,player4,player5,player6,player7,player8]
+    player_pool = player_pool[0:playersf]
+
+
     while five > 0:
-        lowest = min(player1.total(), player2.total(), player3.total(), player4.total())
-        lowest_player = findLowest(player_list,lowest)
+        totals = []
+        for i in range(0,len(player_pool)):
+            totals.append(player_pool[i].total())
+        low = min(totals)
+        lowest_player = findLowest(player_pool,low)
         lowest_player.addFive()
     while hundred > 0:
-        lowest = min(player1.total(), player2.total(), player3.total(), player4.total())
-        lowest_player = findLowest(player_list,lowest)
+        totals = []
+        for i in range(0,len(player_pool)):
+            totals.append(player_pool[i].total())
+        low = min(totals)
+        lowest_player = findLowest(player_pool,low)
         lowest_player.addHundred()
     while fifty > 0:
-        lowest = min(player1.total(), player2.total(), player3.total(), player4.total())
-        lowest_player = findLowest(player_list,lowest)
+        totals = []
+        for i in range(0,len(player_pool)):
+            totals.append(player_pool[i].total())
+        low = min(totals)
+        lowest_player = findLowest(player_pool,low)
         lowest_player.addFifty()
     while ten > 0:
-        lowest = min(player1.total(), player2.total(), player3.total(), player4.total())
-        lowest_player = findLowest(player_list,lowest)
+        totals = []
+        for i in range(0,len(player_pool)):
+            totals.append(player_pool[i].total())
+        low = min(totals)
+        lowest_player = findLowest(player_pool,low)
         lowest_player.addTen()
     while ppf > 0:
-        lowest = min(player1.total(), player2.total(), player3.total(), player4.total())
-        lowest_player = findLowest(player_list,lowest)
+        totals = []
+        for i in range(0,len(player_pool)):
+            totals.append(player_pool[i].total())
+        low = min(totals)
+        lowest_player = findLowest(player_pool,low)
         lowest_player.addP()
     while gpf > 0:
-        lowest = min(player1.total(), player2.total(), player3.total(), player4.total())
-        lowest_player = findLowest(player_list,lowest)
+        totals = []
+        for i in range(0,len(player_pool)):
+            totals.append(player_pool[i].total())
+        low = min(totals)
+        lowest_player = findLowest(player_pool,low)
         lowest_player.addG()
     while epf > 0:
-        lowest = min(player1.total(), player2.total(), player3.total(), player4.total())
-        lowest_player = findLowest(player_list,lowest)
+        totals = []
+        for i in range(0,len(player_pool)):
+            totals.append(player_pool[i].total())
+        low = min(totals)
+        lowest_player = findLowest(player_pool,low)
         lowest_player.addE()
     while spf > 0:
-        lowest = min(player1.total(), player2.total(), player3.total(), player4.total())
-        lowest_player = findLowest(player_list,lowest)
+        totals = []
+        for i in range(0,len(player_pool)):
+            totals.append(player_pool[i].total())
+        low = min(totals)
+        lowest_player = findLowest(player_pool,low)
         lowest_player.addS()
     while cpf > 0:
-        lowest = min(player1.total(), player2.total(), player3.total(), player4.total())
-        lowest_player = findLowest(player_list,lowest)
+        totals = []
+        for i in range(0,len(player_pool)):
+            totals.append(player_pool[i].total())
+        low = min(totals)
+        lowest_player = findLowest(player_pool,low)
         lowest_player.addC()
-    diff1 = player1.total() - per_player
-    gems1 = (player1.ten * 10) + (player1.fifty * 50) + (player1.hundred * 100) + (player1.five * 500)
-    msg1 = ('Player1 recieves: ' + str(player1.pp) + 'P, ' + str(player1.gp) + 'G, ' + str(player1.ep) + 'E, ' + str(player1.sp) + 'S, ' + str(player1.cp) + 'C, and ' + str(gems1) + ' worth of gems, ' + 'with a difference of ' + str(diff1))
-    diff2 = player2.total() - per_player
-    gems2 = (player2.ten * 10) + (player2.fifty * 50) + (player2.hundred * 100) + (player2.five * 500)
-    msg2 = ('Player2 recieves: ' + str(player2.pp) + 'P, ' + str(player2.gp) + 'G, ' + str(player2.ep) + 'E, ' + str(player2.sp) + 'S, ' + str(player2.cp) + 'C, and ' + str(gems2) + ' worth of gems, ' + 'with a difference of ' + str(diff2))
-    diff3 = player3.total() - per_player
-    gems3 = (player3.ten * 10) + (player3.fifty * 50) + (player3.hundred * 100) + (player3.five * 500)
-    msg3 = ('Player3 recieves: ' + str(player3.pp) + 'P, ' + str(player3.gp) + 'G, ' + str(player3.ep) + 'E, ' + str(player3.sp) + 'S, ' + str(player3.cp) + 'C, and ' + str(gems3) + ' worth of gems, ' + 'with a difference of ' + str(diff3))
-    diff4 = player4.total() - per_player
-    gems4 = (player4.ten * 10) + (player4.fifty * 50) + (player4.hundred * 100) + (player4.five * 500)
-    msg4 = ('Player4 recieves: ' + str(player4.pp) + 'P, ' + str(player4.gp) + 'G, ' + str(player4.ep) + 'E, ' + str(player4.sp) + 'S, ' + str(player4.cp) + 'C, and ' + str(gems4) + ' worth of gems, ' + 'with a difference of ' + str(diff4))
-    print(msg1)
-    print(msg2)
-    print(msg3)
-    print(msg4)
+    for x in player_pool:
+        print (x.makeMessage())
 
 if __name__ == "__main__":
     args = parser.parse_args()
